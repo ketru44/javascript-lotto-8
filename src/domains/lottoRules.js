@@ -2,6 +2,9 @@ import { LOTTO_CONSTANTS, ERROR_MSG } from "../constants"
 import { toArray, includesNumber } from "../utils/array";
 
 // 로또의 비지니스 규칙과 관련된 검증들
+export const isValidPurchaseAmount = (amount) =>
+  amount % LOTTO_CONSTANTS.TICKET_PRICE === 0 || ERROR_MSG.COST_UNIT;
+
 export const hasExactSize = (arr) =>
   arr.length === LOTTO_CONSTANTS.NUMBERS_PER_TICKET || ERROR_MSG.LOTTO_SIZE
 
@@ -20,5 +23,7 @@ export const isLottoNumUnique = (arr) =>
 export const isBonusUnique = (num, arr) => 
   !includesNumber(arr, num) || ERROR_MSG.LOTTO_NUM_UNIQUE;
 
+export const costRules = [isValidPurchaseAmount];
 export const lottoRules = [hasExactSize, inRange, isLottoNumUnique];
 export const bonusRules = [inRange, isBonusUnique];
+

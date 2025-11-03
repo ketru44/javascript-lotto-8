@@ -1,4 +1,12 @@
-import { lottoRules, bonusRules } from "./lottoRules";
+import { costRules,lottoRules, bonusRules } from "./lottoRules";
+
+export function validateCost(cost) {
+  for(const rule of costRules) {
+    const result = rule(cost);
+    if(result !== true) return result;
+  }
+  return true;
+}
 
 export function validateLottoNumbers(lottoArr) {
   for(const rule of lottoRules) {
@@ -8,9 +16,9 @@ export function validateLottoNumbers(lottoArr) {
   return true; // 모두 통과
 }
 
-export function validateBonusNumber(lottoArr, bonusNum) {
+export function validateBonusNumber(bonusNum, lottoArr) {
   for(const rule of bonusRules) {
-    const result = rule(lottoArr, bonusNum);
+    const result = rule(bonusNum, lottoArr);
     if(result !== true) return result;
   }
   return true;
