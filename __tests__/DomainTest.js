@@ -1,5 +1,5 @@
 import { calculateMatchCount, isBonusMatch, determineRankOf } from "../src/domains/ranking";
-import { accumulateProfit } from "../src/domains/profit";
+import { accumulateProfit, getRateOfInvestmentByPercent } from "../src/domains/profit";
 import { RANK_TABLE, PRIZE_TABLE } from "../src/constants";
 
 describe("순위 결정 관련 비지니스 로직 단위 테스트", () => {
@@ -45,5 +45,16 @@ describe("당첨 금액 관련 로직 단위 테스트", () => {
     const rank_6th = [6, 6, 6];
     const profit = 0;
     expect(accumulateProfit(rank_6th, PRIZE_TABLE)).toBe(profit);
-  })
+  });
+  test("퍼센트 환산된 수익률을 반환한다.", () => {
+    // 2000 / 1000 = 2 -> 200%
+    expect(getRateOfInvestmentByPercent(2000, 1000)).toBe(200);
+    // 995 / 1000 = 0.995 -> 99.5%
+    expect(getRateOfInvestmentByPercent(995, 1000)).toBe(99.5);
+  });
+  test("소수점 이하의 결과를 정확히 반환한다.", () => {
+    // 3333 / 7000 = 0.47614... -> 47.614..%
+    const expectAboutResult = 47.614
+    expect(getRateOfInvestmentByPercent(3333, 7000)).toBeCloseTo(expectAboutResult);
+  });
 })
