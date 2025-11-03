@@ -7,3 +7,7 @@ export const inRange = (arr) =>
       n <= LOTTO_CONSTANTS.MAX_NUMBER // 45
     ) || ERROR_MSG.LOTTO_NUM_RANGE;
 
+export const isUnique = (arr) =>
+  new Set(arr).size === arr.length || ERROR_MSG.LOTTO_NUM_UNIQUE;
+
+export const lottoRules = [inRange, isUnique];
