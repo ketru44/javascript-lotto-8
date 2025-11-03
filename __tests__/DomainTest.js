@@ -1,5 +1,6 @@
 import { calculateMatchCount, isBonusMatch, determineRankOf } from "../src/domains/ranking";
-import { RANK_TABLE } from "../src/constants";
+import { accumulateProfit } from "../src/domains/profit";
+import { RANK_TABLE, PRIZE_TABLE } from "../src/constants";
 
 describe("순위 결정 관련 비지니스 로직 단위 테스트", () => {
   test("일치하는 개수를 반환한다.", () => {
@@ -31,5 +32,18 @@ describe("순위 결정 관련 비지니스 로직 단위 테스트", () => {
     const matchedCnt = 5;
     const isBonusMatch = false;
     expect(determineRankOf(matchedCnt, isBonusMatch, RANK_TABLE)).toBe(3);
+  })
+});
+
+describe("당첨 금액 관련 로직 단위 테스트", () => {
+  test("1등, 4등을 했을 때 2,000,050,000을 반환한다.", () => {
+    const rankOflottos = [1, 4]
+    const profit = 2_000_050_000 // 1등(2억) + 4등(5만)
+    expect(accumulateProfit(rankOflottos, PRIZE_TABLE)).toBe(profit);
+  });
+  test("6등을 했을 떄는 0을 반환한다.", () => {
+    const rank_6th = [6, 6, 6];
+    const profit = 0;
+    expect(accumulateProfit(rank_6th, PRIZE_TABLE)).toBe(profit);
   })
 })
