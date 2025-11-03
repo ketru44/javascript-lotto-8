@@ -1,4 +1,5 @@
 import { calculateMatchCount, isBonusMatch } from "../src/domains/ranking";
+
 describe("순위 결정 관련 비지니스 로직", () => {
   test("일치하는 개수를 반환한다.", () => {
     const ticket = [1, 2, 3, 4, 5, 6];
