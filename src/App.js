@@ -7,6 +7,7 @@ import { createLottos } from "./domains/createLottoNumbers";
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { randomUniquesInRange } from "./utils/random";
 import { calculateMatchCount, determineRankOf, isBonusMatch } from "./domains/ranking";
+import { accumulateProfit, getRateOfInvestmentByPercent } from "./domains/profit";
 
 class App {
   async run() {
@@ -29,12 +30,22 @@ class App {
       makeAndValidate: validateLottoNumbers,
     });
 
+    const bonusNum = await askUntilValid({
+      question: INPUT_QUESTION.COST,
+      parse: toNumber,
+      makeAndValidate: (n) => validateBonusNumber(n, winningNums),
+    });
+
     const results = lottos.map((lotto) => {
       const matched = calculateMatchCount(lotto.numbers, winningNums);
       const bonusFlag = isBonusMatch(lotto.numbers, bonusNum);
       const rank = determineRankOf(matched, bonusFlag, RANK_TABLE);
       return { matched, bonusFlag, rank };
     });
+    
+    const rankResultArr = results.map(({rank}) => rank);
+    const totalProfit = accumulateProfit(rankResultArr, PRIZE_TABLE);
+    const rateOfInvestment = getRateOfInvestmentByPercent(totalProfit, purchasedAmount);
 
     const rankCounts = results.reduce((acc, { rank }) => {
       if (rank) acc[rank] = (acc[rank] || 0) + 1;
@@ -47,13 +58,7 @@ class App {
       const count = rankCounts[rank] || 0;
       MissionUtils.Console.print(`${LABELS[rank]} (${prize.toLocaleString()}원) - ${count}개`);
     });
-
-
-    const bonusNum = await askUntilValid({
-      question: INPUT_QUESTION.COST,
-      parse: toNumber,
-      makeAndValidate: (n) => validateBonusNumber(n, winningNums),
-    });
+    MissionUtils.Console.print(`총 수익률은 ${rateOfInvestment}%입니다.`)
   }
 }
 
