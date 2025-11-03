@@ -23,3 +23,9 @@ export const PRIZE_TABLE = Object.freeze({
   5: 5_000,
   6: 0,
 });
+
+export const ERROR_MSG = Object.freeze({
+  LOTTO_SIZE: "[ERROR] 로또 번호는 6개여야 합니다.",
+  LOTTO_NUM_RANGE: "[ERROR] 로또 번호는 1~45만으로 이루어집니다.",
+  LOTTO_NUM_UNIQUE: "[ERROR] 하나의 로또에 중복된 숫자가 존재할 수 없습니다.",
+})

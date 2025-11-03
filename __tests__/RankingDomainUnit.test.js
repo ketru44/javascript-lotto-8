@@ -1,6 +1,5 @@
 import { calculateMatchCount, isBonusMatch, determineRankOf } from "../src/domains/ranking";
-import { accumulateProfit, getRateOfInvestmentByPercent } from "../src/domains/profit";
-import { RANK_TABLE, PRIZE_TABLE } from "../src/constants";
+import { RANK_TABLE } from "../src/constants";
 
 describe("순위 결정 관련 비지니스 로직 단위 테스트", () => {
   test("일치하는 개수를 반환한다.", () => {
