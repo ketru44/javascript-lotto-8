@@ -6,11 +6,7 @@ class App {
   async run() {
     const tickets = await askUntilValid({
       question: INPUT_QUESTION.COST,
-      parse: (raw) => {
-        const n = toNumber(raw);
-        if(!Number.isInteger(n)) throw new Error("[ERROR]");
-        return n;
-      },
+      parse: toNumber,
       makeAndValidate: validateCost
     });
     const winningNums = await askUntilValid({
@@ -20,11 +16,7 @@ class App {
     });
     const bonusNum = await askUntilValid({
       question: INPUT_QUESTION.COST,
-      parse: (raw) => {
-        const n = toNumber(raw);
-        if(!Number.isInteger(n)) throw new Error("[ERROR]");
-        return n;
-      },
+      parse: toNumber,
       makeAndValidate: (n) => validateBonusNumber(n, winningNums),
     });
   }

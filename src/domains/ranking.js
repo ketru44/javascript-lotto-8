@@ -1,4 +1,4 @@
-import { includesNumber } from "../utils/array";
+import { includesNumber } from "../utils";
 
 export function calculateMatchCount(ticket, winning, numbersPerTicket = 6) {
   const uniqueNumbers = new Set([...ticket, ...winning]);

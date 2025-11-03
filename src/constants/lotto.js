@@ -25,8 +25,9 @@ export const PRIZE_TABLE = Object.freeze({
 });
 
 export const ERROR_MSG = Object.freeze({
-  COST_UNIT: "[ERROR] 구입 금액은 1000원 단위의 숫자여야 합니다.",
-  LOTTO_SIZE: "[ERROR] 로또 번호는 6개여야 합니다.",
-  LOTTO_NUM_RANGE: "[ERROR] 로또 번호는 1~45만으로 이루어집니다.",
-  LOTTO_NUM_UNIQUE: "[ERROR] 하나의 로또에 중복된 숫자가 존재할 수 없습니다.",
+  COST_UNIT: "[ERROR] 구입 금액은 1000원 단위의 숫자여야 합니다.\n",
+  LOTTO_SIZE: "[ERROR] 로또 번호는 6개여야 합니다.\n",
+  LOTTO_NUM_RANGE: "[ERROR] 로또 번호는 1~45만으로 이루어집니다.\n",
+  LOTTO_NUM_UNIQUE: "[ERROR] 하나의 로또에 중복된 숫자가 존재할 수 없습니다.\n",
+  NUMBER_INTEGER: "[ERROR] 로또 번호는 정수입니다.\n"
 })

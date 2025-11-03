@@ -1,5 +1,5 @@
 import { LOTTO_CONSTANTS, ERROR_MSG } from "../constants/lotto"
-import { toArray, includesNumber } from "../utils/array";
+import { toArray, includesNumber, isIntegerValue } from "../utils";
 
 // 로또의 비지니스 규칙과 관련된 검증들
 export const isValidPurchaseAmount = (amount) =>
@@ -17,13 +17,20 @@ export const inRange = (valueOrArr) => {
     ) || ERROR_MSG.LOTTO_NUM_RANGE;
 }
 
+export const isIntegerArr = (valueOrArr) => {
+  const arr = toArray(valueOrArr);
+  return arr.every(
+    n => isIntegerValue(n)
+  ) || ERROR_MSG.NUMBER_INTEGER;
+}
+
 export const isLottoNumUnique = (arr) =>
   new Set(arr).size === arr.length || ERROR_MSG.LOTTO_NUM_UNIQUE;
 
 export const isBonusUnique = (num, arr) => 
   !includesNumber(arr, num) || ERROR_MSG.LOTTO_NUM_UNIQUE;
 
-export const costRules = [isValidPurchaseAmount];
-export const lottoRules = [hasExactSize, inRange, isLottoNumUnique];
-export const bonusRules = [inRange, isBonusUnique];
+export const costRules = [isIntegerArr, isValidPurchaseAmount];
+export const lottoRules = [hasExactSize, isIntegerArr, inRange, isLottoNumUnique];
+export const bonusRules = [isIntegerArr, inRange, isBonusUnique];
 

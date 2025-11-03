@@ -5,3 +5,6 @@ export const toArray = (value) => {
   if(Array.isArray(value)) return value;
   return [value];
 }
+
+export const isIntegerValue = (value) => Number.isInteger(value);
+export const isNaNValue = (value) => Number.isNaN(value);

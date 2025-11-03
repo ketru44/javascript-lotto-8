@@ -5,6 +5,10 @@ describe("당첨 번호 도메인 검증", () => {
   test("로또 번호는 6개이어야 한다.", () => {
     expect(validateLottoNumbers([1, 2, 3, 4, 5])).toBe(ERROR_MSG.LOTTO_SIZE);
   });
+  test("로또 번호는 정수이어야 한다.", () => {
+    expect(validateLottoNumbers(["m", 1, 2, 3, 4, 5])).toBe(ERROR_MSG.NUMBER_INTEGER); 
+    expect(validateLottoNumbers([1.1, 1, 2, 3, 4, 5])).toBe(ERROR_MSG.NUMBER_INTEGER);
+  })
   test("각 로또 번호는 1~45 범위 안에 있어야 한다.", () => {
     expect(validateLottoNumbers([0, 1, 2, 3, 4, 5])).toBe(ERROR_MSG.LOTTO_NUM_RANGE); // < 1
     expect(validateLottoNumbers([1, 2, 3, 4, 5, 46])).toBe(ERROR_MSG.LOTTO_NUM_RANGE); // > 45
