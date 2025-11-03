@@ -1,8 +1,7 @@
-import { INPUT_QUESTION, LABELS, OUTPUT_MSG } from "./constants/ioMsg";
+import { LABELS, OUTPUT_MSG } from "./constants/ioMsg";
 import { LOTTO_CONSTANTS, PRIZE_TABLE, RANK_TABLE } from "./constants/lotto";
-import { askUntilValid } from "./askUntilValid";
-import { devisionNumber, parseToArrayByComma, toNumber } from "./utils/parsing";
-import { validateBonusNumber, validateCost, validateLottoNumbers } from "./domains/validate";
+import { readBonusNumberUntilValid, readPurchasedAmountUntilValid, readWinningNumbersUntilValid } from "./view/input";
+import { devisionNumber } from "./utils/parsing";
 import { createLottos } from "./domains/createLottoNumbers";
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { randomUniquesInRange } from "./utils/random";
@@ -11,11 +10,7 @@ import { accumulateProfit, getRateOfInvestmentByPercent } from "./domains/profit
 
 class App {
   async run() {
-    const purchasedAmount = await askUntilValid({
-      question: INPUT_QUESTION.COST,
-      parse: toNumber,
-      makeAndValidate: validateCost
-    });
+    const purchasedAmount = await readPurchasedAmountUntilValid();
     const ticketAmount = devisionNumber(purchasedAmount, LOTTO_CONSTANTS.TICKET_PRICE);
     const lottos = createLottos(ticketAmount, randomUniquesInRange);
 
@@ -24,17 +19,8 @@ class App {
       MissionUtils.Console.print(`[${lotto.numbers.join(", ")}]`);
     });
 
-    const winningNums = await askUntilValid({
-      question: INPUT_QUESTION.WINNING_NUMS,
-      parse: parseToArrayByComma,
-      makeAndValidate: validateLottoNumbers,
-    });
-
-    const bonusNum = await askUntilValid({
-      question: INPUT_QUESTION.COST,
-      parse: toNumber,
-      makeAndValidate: (n) => validateBonusNumber(n, winningNums),
-    });
+    const winningNums = await readWinningNumbersUntilValid();
+    const bonusNum = await readBonusNumberUntilValid(winningNums);
 
     const results = lottos.map((lotto) => {
       const matched = calculateMatchCount(lotto.numbers, winningNums);
