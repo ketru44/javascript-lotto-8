@@ -1,5 +1,5 @@
 import { accumulateProfit, getRateOfInvestmentByPercent } from "../src/domains/profit";
-import { PRIZE_TABLE } from "../src/constants";
+import { PRIZE_TABLE } from "../src/constants/lotto";
 
 describe("로또 수익 관련 로직 단위 테스트", () => {
   test("1등, 4등을 했을 때 2,000,050,000을 반환한다.", () => {

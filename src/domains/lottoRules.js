@@ -1,4 +1,4 @@
-import { LOTTO_CONSTANTS, ERROR_MSG } from "../constants"
+import { LOTTO_CONSTANTS, ERROR_MSG } from "../constants/lotto"
 import { toArray, includesNumber } from "../utils/array";
 
 // 로또의 비지니스 규칙과 관련된 검증들

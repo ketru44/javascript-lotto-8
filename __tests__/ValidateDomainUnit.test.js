@@ -1,5 +1,5 @@
 import { validateLottoNumbers, validateBonusNumber, validateCost } from "../src/domains/validate";
-import { ERROR_MSG } from "../src/constants";
+import { ERROR_MSG } from "../src/constants/lotto";
 
 describe("당첨 번호 도메인 검증", () => {
   test("로또 번호는 6개이어야 한다.", () => {

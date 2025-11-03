@@ -1,4 +1,4 @@
-import { LOTTO_CONSTANTS } from "../constants"
+import { LOTTO_CONSTANTS } from "../constants/lotto"
 import Lotto from "../entities/Lotto";
 
 export function creatOneLotto(drawUniqueNumbers) {

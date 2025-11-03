@@ -1,5 +1,5 @@
 import { calculateMatchCount, isBonusMatch, determineRankOf } from "../src/domains/ranking";
-import { RANK_TABLE } from "../src/constants";
+import { RANK_TABLE } from "../src/constants/lotto";
 
 describe("순위 결정 관련 비지니스 로직 단위 테스트", () => {
   test("일치하는 개수를 반환한다.", () => {
