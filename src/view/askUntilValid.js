@@ -1,10 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-export async function askUntilValid({ question, parse, makeAndValidate }) {
+export async function askUntilValid({ question, parse, validate }) {
   while (true) {
     try {
       const raw = (await MissionUtils.Console.readLineAsync(question)).trim();
       const parsed = parse(raw);
-      const value = makeAndValidate(parsed);
+      const value = validate(parsed);
       if(value !== true) throw new Error(value);
       return parsed;
     } catch (e) {
