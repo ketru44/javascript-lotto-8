@@ -1,4 +1,4 @@
-import { INPUT_QUESTION, LABELS } from "./constants/ioMsg";
+import { INPUT_QUESTION, LABELS, OUTPUT_MSG } from "./constants/ioMsg";
 import { LOTTO_CONSTANTS, PRIZE_TABLE, RANK_TABLE } from "./constants/lotto";
 import { askUntilValid } from "./askUntilValid";
 import { devisionNumber, parseToArrayByComma, toNumber } from "./utils/parsing";
@@ -19,7 +19,7 @@ class App {
     const ticketAmount = devisionNumber(purchasedAmount, LOTTO_CONSTANTS.TICKET_PRICE);
     const lottos = createLottos(ticketAmount, randomUniquesInRange);
 
-    MissionUtils.Console.print(`${ticketAmount}개를 구매했습니다.`);
+    MissionUtils.Console.print(OUTPUT_MSG.PURCHASED_TICKETS(ticketAmount));
     lottos.forEach((lotto) => {
       MissionUtils.Console.print(`[${lotto.numbers.join(", ")}]`);
     });
@@ -52,13 +52,13 @@ class App {
       return acc;
     }, {});
 
-    MissionUtils.Console.print("\n당첨 통계");
-    MissionUtils.Console.print("---");
+    MissionUtils.Console.print(OUTPUT_MSG.WINNING_STATS_DIVIDER);
+    MissionUtils.Console.print(OUTPUT_MSG.WINNING_STATS_DIVIDER);
     Object.entries(PRIZE_TABLE).forEach(([rank, prize]) => {
       const count = rankCounts[rank] || 0;
       MissionUtils.Console.print(`${LABELS[rank]} (${prize.toLocaleString()}원) - ${count}개`);
     });
-    MissionUtils.Console.print(`총 수익률은 ${rateOfInvestment}%입니다.`)
+    MissionUtils.Console.print(OUTPUT_MSG.ROI_RESULT(rateOfInvestment));
   }
 }
 
